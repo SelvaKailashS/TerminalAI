@@ -31,7 +31,12 @@ Never break character."""
 def home():
     return send_from_directory(".", "index.html")
 
+@app.route("/assets/<path:path>")
+def send_assets(path):
+    return send_from_directory("assets", path)
+
 @app.route("/news", methods=["GET"])
+@app.route("/api/news", methods=["GET"])
 def get_news():
     """Fetch today's hot news"""
     try:
@@ -52,6 +57,7 @@ def get_news():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route("/chat", methods=["POST"])
+@app.route("/api/chat", methods=["POST"])
 def chat():
     try:
         data = request.get_json(silent=True) or {}
