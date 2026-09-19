@@ -37,6 +37,10 @@ def home():
 def send_assets(path):
     return send_from_directory("assets", path)
 
+@app.route("/sitemap.xml")
+def sitemap():
+    return send_from_directory(".", "sitemap.xml", mimetype="application/xml")
+
 @app.route("/news", methods=["GET"])
 @app.route("/api/news", methods=["GET"])
 def get_news():
